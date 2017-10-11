@@ -46,16 +46,17 @@ public class FileBot {
             br = new BufferedReader(new InputStreamReader(System.in));
             boolean flag = true;
             while (flag) {
-                int i = (int) Math.floor(Math.random() * (rf.size() - 1));
-                String input = br.readLine();
+                int i = 1 + (int) Math.floor(Math.random() * (rf.size() - 2));
+                String input = br.readLine().toLowerCase();
                 switch (input) {
-                    case "Goodbye": {
+                    case "goodbye": {
                         System.out.println(rf.get(rf.size() - 1));
                         flag = false;
                         break;
                     }
-                    case "Stop talking": {
-                        break;
+                    case "stop talking": {
+
+                        while (br.readLine() != "start talking");
                     }
                     default:
                         System.out.println(rf.get(i));
