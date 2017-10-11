@@ -2,7 +2,6 @@ package com.sbt;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class FileBot {
 
@@ -15,7 +14,7 @@ public class FileBot {
         File file = new File(fileName);
         ArrayList sb = new ArrayList();
 
-        exists(fileName);
+        //exists(fileName);
 
         try {
             BufferedReader in = new BufferedReader(new FileReader( file.getAbsoluteFile()));
@@ -31,29 +30,45 @@ public class FileBot {
             throw new RuntimeException(e);
         }
 
-        return sb; //toString();
+        return sb;
     }
 
     //МЕТОД ЧТЕНИЯ С КОНСОЛИ
     public static String readConsole(String FileName) {
         BufferedReader br = null;
+        BufferedReader sbr = null;
         try {
             ArrayList rf = readFile(FileName);
             System.out.println(rf.get(0));
             br = new BufferedReader(new InputStreamReader(System.in));
-            boolean flag = true;
-            while (flag) {
+            boolean flag1 = true;
+            boolean flag2 = true;
+            while (flag1) {
                 int i = 1 + (int) Math.floor(Math.random() * (rf.size() - 2));
                 String input = br.readLine().toLowerCase();
                 switch (input) {
                     case "goodbye": {
                         System.out.println(rf.get(rf.size() - 1));
-                        flag = false;
+                        flag1 = false;
                         break;
                     }
                     case "stop talking": {
-
-                        while (br.readLine() != "start talking");
+                        while (flag2) {
+                            String input2 = br.readLine().toLowerCase();
+                            switch (input2) {
+                                case "start talking": {
+                                    flag2 = false;
+                                    break;
+                                }
+                                case "goodbye": {
+                                    System.out.println(rf.get(rf.size() - 1));
+                                    flag1 = false;
+                                    flag2 = false;
+                                    break;
+                                }
+                            }
+                        }
+                        break;
                     }
                     default:
                         System.out.println(rf.get(i));
@@ -73,11 +88,11 @@ public class FileBot {
         return br.toString();
     }
 
-    //МЕТОД ПРОВЕРКИ СУЩЕСТВОВАНИЯ ФАЙЛА
-    private static void exists(String fileName) throws FileNotFoundException {
-        File file = new File(fileName);
-        if (!file.exists()){
-            throw new FileNotFoundException(file.getName());
-        }
-    }
+//    //МЕТОД ПРОВЕРКИ СУЩЕСТВОВАНИЯ ФАЙЛА
+//    private static void exists(String fileName) throws FileNotFoundException {
+//        File file = new File(fileName);
+//        if (!file.exists()){
+//            throw new FileNotFoundException(file.getName());
+//        }
+//    }
 }
