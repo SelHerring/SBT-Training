@@ -1,6 +1,6 @@
-HELLO, MAN!
+Other file loaded!
 second string
 third string
 fourth string
 fifth string
-GOODBYE, MAN!
+GOODBYE, MAN!!!

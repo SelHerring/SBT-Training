@@ -6,16 +6,13 @@ import java.util.ArrayList;
 public class FileBot {
 
     public static void main(String[] args) throws FileNotFoundException {
-        readConsole("/Users/macbook/Projects/Bot/answers.txt");
+        readConsole("C:\\Projects\\SBT-Training\\answers.txt");
     }
 
     //МЕТОД ЧТЕНИЯ ДАННЫХ В ФАЙЛЕ
     public static ArrayList readFile(String fileName) throws FileNotFoundException {
         File file = new File(fileName);
         ArrayList sb = new ArrayList();
-
-        //exists(fileName);
-
         try {
             BufferedReader in = new BufferedReader(new FileReader( file.getAbsoluteFile()));
             String s;
@@ -29,14 +26,12 @@ public class FileBot {
         } catch(IOException e) {
             throw new RuntimeException(e);
         }
-
         return sb;
     }
 
     //МЕТОД ЧТЕНИЯ С КОНСОЛИ
     public static String readConsole(String FileName) {
         BufferedReader br = null;
-        BufferedReader sbr = null;
         try {
             ArrayList rf = readFile(FileName);
             System.out.println(rf.get(0));
@@ -70,8 +65,13 @@ public class FileBot {
                         }
                         break;
                     }
-                    default:
+                    default: {
                         System.out.println(rf.get(i));
+                        if (input.contains("use file")) {
+                            rf = readFile(input.substring(9, input.length()));
+                            System.out.println(rf.get(0));
+                        }
+                    }
                 }
             }
         } catch (IOException e) {
@@ -87,12 +87,4 @@ public class FileBot {
         }
         return br.toString();
     }
-
-//    //МЕТОД ПРОВЕРКИ СУЩЕСТВОВАНИЯ ФАЙЛА
-//    private static void exists(String fileName) throws FileNotFoundException {
-//        File file = new File(fileName);
-//        if (!file.exists()){
-//            throw new FileNotFoundException(file.getName());
-//        }
-//    }
 }
